@@ -108,9 +108,12 @@
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            const data = JSON.parse(this.responseText);
-            $('.gallery').html('<li><img src="images/square/5855729828.jpg"></li>')
-
+            const imgData = JSON.parse(this.responseText);
+            console.log(imgData[15].title);
+            for(var count = 0; count < imgData.length; count++) {
+                $('.gallery').append('<li><img src="images/square/' + imgData[count].path + '" alt = "'+ imgData[count].title + '"></li>');
+            }
+            
         }
 
 
