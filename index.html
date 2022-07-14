@@ -110,11 +110,26 @@
         if (this.readyState == 4 && this.status == 200) {
             const imgData = JSON.parse(this.responseText);
             console.log(imgData[15].title);
-            for(var count = 0; count < imgData.length; count++) {
-                $('.gallery').append('<li><img src="images/square/' + imgData[count].path + '" alt = "'+ imgData[count].title + '"></li>');
-            }
-            
+            for (var count = 0; count < imgData.length; count++) {
+                $('.gallery').append('<li><img src="images/square/' + imgData[count].path + '" alt = "' + imgData[count].title + '"></li>');
+                var s = [];
+                s.(imgData[count].path);
+
+            };
+            console.log(s);
+
+            $('img').on('mouseenter', function (e) {
+                $(this).attr('class', 'gray');
+                // CharacterData s = ($(this).attr("src"));
+                // console.log(s);
+                // $(this).append('<div id = "preview"><img src = "images/medium/' + e. + '"></div>');
+
+            });
+
+
+
         }
+
 
 
     }
