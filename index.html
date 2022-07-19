@@ -112,26 +112,17 @@
             console.log(imgData[15].title);
             for (var count = 0; count < imgData.length; count++) {
                 $('.gallery').append('<li><img src="images/square/' + imgData[count].path + '" alt = "' + imgData[count].title + '"></li>');
-                var s = [];
-                s.(imgData[count].path);
 
             };
-            console.log(s);
 
             $('img').on('mouseenter', function (e) {
                 $(this).attr('class', 'gray');
-                // CharacterData s = ($(this).attr("src"));
-                // console.log(s);
-                // $(this).append('<div id = "preview"><img src = "images/medium/' + e. + '"></div>');
-
+                var mediumImage = $(this).attr('src').replace("square", "medium");
+                $(this).html('<div id = "preview"><img src="'+ mediumImage +'"><p>TienDao</p></div>');
+                // $(this).append();
             });
-
-
-
+            
         }
-
-
-
     }
     xhr.open('GET', 'js/data.json', true);
     xhr.send();
