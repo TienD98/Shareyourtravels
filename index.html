@@ -88,11 +88,10 @@
     <main class="container">
 
         <ul class="gallery">
-
         </ul>
 
-    </main>
 
+    </main>
 
 
     <footer>
@@ -109,19 +108,39 @@
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             const imgData = JSON.parse(this.responseText);
-            console.log(imgData[15].title);
             for (var count = 0; count < imgData.length; count++) {
                 $('.gallery').append('<li><img src="images/square/' + imgData[count].path + '" alt = "' + imgData[count].title + '"></li>');
 
             };
 
-            $('img').on('mouseenter', function (e) {
-                $(this).attr('class', 'gray');
-                var mediumImage = $(this).attr('src').replace("square", "medium");
-                $(this).html('<div id = "preview"><img src="'+ mediumImage +'"><p>TienDao</p></div>');
-                // $(this).append();
+            $(document).ready(function () {
+                $('img').on('mouseenter', function (e) {
+                    $(this).attr('class', 'gray');
+                    var mediumImage = $(this).attr('src').replace("square", "medium");
+                    var caption;
+                    var location;
+                    for (var count = 0; count < imgData.length; count++) {
+                        if ($(this).attr('src').includes(imgData[count].path)) {
+                            caption = imgData[count].title;
+                            location = imgData[count].city + ', ' + imgData[count].country + ' [' + imgData[count].taken + ']';
+                            $(this).attr('title', caption);
+                        }
+                    }
+                    $('body').append('<div id="preview"><img src="' + mediumImage + '"><p>' + caption + '</p><em>' + location + '</em></div>');
+                    $('#preview').css('top', e.pageY + 10);
+                    $('#preview').css('left', e.pageX + 10);
+                    $('#preview').fadeIn(1000);
+                });
+                $('img').on('mouseleave', function () {
+                    $(this).removeAttr('class');
+                    $('#preview').remove();
+                });
+                $('img').on('mousemove', function (e) {
+                    $('#preview').css('top', e.pageY + 10);
+                    $('#preview').css('left', e.pageX + 10);
+                });
             });
-            
+
         }
     }
     xhr.open('GET', 'js/data.json', true);
